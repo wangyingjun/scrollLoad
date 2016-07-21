@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test scroll</title>
+</head>
+<body>
+<div id="wrap">
+	<p>fdsafdlskjfkldsjfldksajfds a </p>
+	<p>fdsafdlskjfkldsjfldksajfds a </p>
+	<p>fdsafdlskjfkldsjfldksajfds a </p>
+	<p>fdsafdlskjfkldsjfldksajfds a </p>
+</div>
+	<script type="text/javascript" src="./scrollLoader.js"></script>
+	<script type="text/javascript">
+		var wrap = document.getElementById('wrap');
+		var loader = new ScrollLoader({
+			autoLoad: true,
+			loadUpFn: function(that){
+				setTimeout(function(){
+
+				var scrollTop = document.body.scrollTop,
+					defaultHeight = wrap.scrollHeight;
+
+					for(var i = 0; i < 5; i++){
+						var p = document.createElement('p');
+						p.innerHTML = 'test'+ i
+						wrap.insertBefore(p, wrap.firstChild)
+						// wrap.appendChild(p)
+					}
+					var wrapHeight = wrap.scrollHeight;
+					console.log(wrapHeight)
+					document.body.scrollTop = wrapHeight - defaultHeight + scrollTop;
+					that.loading = false;
+					that.resizeHeight()
+					that.autoLoad();
+				},1000)
+			}
+		})
+		// window.addEventListener('scroll', function(){
+		// 	console.log(document.body.scrollTop)
+		// }, false)
+		// var wrap = document.getElementById('wrap')
+		// wrap.addEventListener('scroll', function(){
+		// 	console.log(wrap.scrollTop)
+		// })
+	</script>
+</body>
+</html>
